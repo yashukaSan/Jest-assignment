@@ -11,7 +11,11 @@
     "typeRoots": [
       "./node_modules/@types",
       "./types"
-    ]
+    ],
+    "noEmit": false,
+    "emitDeclarationOnly": false,
+    "allowImportingTsExtensions": true,
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts"
