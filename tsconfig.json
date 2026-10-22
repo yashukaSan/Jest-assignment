@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "commonjs",
+    "module": "es2022",
     "outDir": "./dist",
     "rootDir": "./",
     "strict": true,
@@ -14,7 +14,7 @@
     ],
     "noEmit": false,
     "emitDeclarationOnly": false,
-    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "types": ["jest", "node"]
   },
   "include": [
