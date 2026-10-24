@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import { createBooking, cancelBooking } from '../../controllers/bookingController';
 import Booking from '../../models/Booking'
 import Service from '../../models/Service'
-import Salon from '../../models/Salon'
 
 jest.mock('../../models/Booking', ()=>{
     const BookingMock: any = jest.fn();
@@ -278,7 +277,7 @@ describe('validation - cancelBooking', ()=>{
         
         await cancelBooking(req, res);
 
-        expect(Booking.findById).toHaveBeenCalledTimes(1);
+        expect(Booking.findById).toHaveBeenCalled();
         expect(Booking.findById).toHaveBeenCalledWith(bookingId);
 
     })

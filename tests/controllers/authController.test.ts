@@ -42,7 +42,7 @@ describe('AuthController - Login', () => {
         await login(mockRequest as Request, mockResponse as Response);
 
         expect(User.findOne).toHaveBeenCalledWith({ email: 'test@example.com' });
-        expect(responseObject.status).toBe(200);
+        expect(responseObject.status).toHaveBeenCalledWith(200);
         expect(responseObject.json).toHaveProperty('token');
         expect(responseObject.json.message).toBe('Login successful');
     });
