@@ -51,6 +51,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     );
 
     res.json({ token, role: user.role, userId: user._id });
+    
+    //FIX: add the return status 201 when the login is success
+    res.status(201).json({ message: 'Login successful'});
+
+
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
