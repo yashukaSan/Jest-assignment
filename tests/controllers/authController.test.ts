@@ -83,6 +83,8 @@ describe('AuthController - Login', () => {
 
         await login(mockReq as Request, mockRes as Response);
 
-        expect(User.findOne).not.toHaveBeenCalled();
+        expect(User.findOne).toHaveBeenCalledTimes(1);
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid credentials" });
     });
 });
