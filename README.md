@@ -1,14 +1,12 @@
 # Jest Assignment
----
 A TypeScript project demonstrating unit testing with [Jest](https://jestjs.io).
 
 ## Table of Contents
 - [Pre Requisites](#prerequisite)
 - [Environment Set-up](#environment-setup)
 - [Running Tests](#test-run)
----
+- 
 ## Pre Requesites
----
 
 ### Required Versions
 - [Node.js](https://nodejs.org/) : v18 or later 
@@ -56,9 +54,7 @@ JWT_SECRET=
 ```
 - values should set as your private key
 - confirm the **.env** file is listed in the ***.gitignore*** file
----
 ## Run Tests
----
 - Successfully install the **jest**, **ts-jest**, **supertest**, **@types/jest**, **@types/supertest** modules 
 - add the following in the script of the *package.json* file
 ```
