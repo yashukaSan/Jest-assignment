@@ -2,10 +2,55 @@
 A TypeScript project demonstrating unit testing with [Jest](https://jestjs.io).
 
 ## Table of Contents
-- [Pre Requisites](#prerequisite)
-- [Environment Set-up](#environment-setup)
-- [Running Tests](#test-run)
-- 
+- [Project Structure](#structure)
+- [Pre Requisites](##prerequisite)
+- [Environment Set-up](##environment-setup)
+- [Running Tests](##)
+ 
+## Project Structure
+```
+Jest-Assignment
+|---controllers
+    |---authController.ts
+    |---bookingController.ts
+    |---salonController.ts
+|---middleware
+    |---auth.ts
+|---models
+    |---Booking.ts
+    |---Salon.ts
+    |---Service.ts
+    |---User.ts
+|---routes
+    |---authRoutes.ts
+    |---bookingRoutes.ts
+    |---salonRoutes.ts
+|---tests
+    |---controllers
+        |---authController.test.ts
+        |---bookingController.test.ts
+        |---salonController.test.ts
+    |---middleware
+        |---auth.test.ts
+    |---routes
+        |---authRoutes.test.ts
+        |---bookingRoutes.test.ts
+        |---salonRoutes.test.ts
+|---types
+    |---express
+        |---index.d.ts
+|---utils
+|---seed.ts
+|---.env.example
+|---.gitignore
+|---README.md
+|---index.ts
+|---jest.config.js
+|---package.json
+|---package-lock.json
+|---tsconfig.json
+```
+
 ## Pre Requesites
 
 ### Required Versions
@@ -38,9 +83,9 @@ A TypeScript project demonstrating unit testing with [Jest](https://jestjs.io).
 ### Database or external service
 **MongoDB** *index.ts* connects to mongodb://localhost:27017/salon-db unless MONGO_URI is set.
 
----
+
 ## Environemnt Setup
----
+
 ### Required Environment Variables
 - PORT
 - JWT_SECRET
