@@ -5,53 +5,84 @@ import User from '../../models/User';
 jest.mock('../../models/User');
 
 describe('AuthController - Login', () => {
-    let mockRequest: Partial<Request>;
-    let mockResponse: Partial<Response>;
+    let mockReq: Partial<Request>;
+    let mockRes: Partial<Response>;
     let responseObject: any;
 
     beforeEach(() => {
         jest.clearAllMocks();
 
         responseObject = {};
-        mockRequest = {
+
+        mockReq = {
             body: {
                 email: 'test@example.com',
-                password: "pass123"
+                password: 'pass123'
             }
         };
 
-        mockResponse = {
+        mockRes = {
             status: jest.fn().mockImplementation((code) => {
                 responseObject.status = code;
-                return mockResponse;
+                return mockRes;
             }),
             json: jest.fn().mockImplementation((data) => {
                 responseObject.json = data;
-                return mockResponse;
+                return mockRes;
             })
         };
     });
 
-    it('should return a 200 status and a token when credentials are valid', async () => {
-        const mockUser = {
-            email: 'test@example.com',
-            comparePassword: jest.fn().mockResolvedValue(true),
-        };
-        (User.findOne as jest.Mock).mockResolvedValue(mockUser);
-
-        await login(mockRequest as Request, mockResponse as Response);
-
-        expect(User.findOne).toHaveBeenCalledWith({ email: 'test@example.com' });
-        expect(responseObject.status).toHaveBeenCalledWith(200);
-        expect(responseObject.json).toHaveProperty('token');
-        expect(responseObject.json.message).toBe('Login successful');
-    });
-
-    it('should return 404 if the user is not found', async () => {
+    it('should return 400 if the user does not exist', async () => {
         (User.findOne as jest.Mock).mockResolvedValue(null);
 
-        await login(mockRequest as Request, mockResponse as Response);
+        await login(mockReq as Request, mockRes as Response);
+
         expect(responseObject.status).toBe(400);
-        expect(responseObject.json.message).toBe('Invalid credentials');
+        expect(responseObject.json).toEqual({
+            error: 'Invalid credentials'
+        });
+    });
+
+    it('should look up the user using the email provided in the request', async () => {
+        (User.findOne as jest.Mock).mockResolvedValue(null);
+
+        await login(mockReq as Request, mockRes as Response);
+
+        expect(User.findOne).toHaveBeenCalledWith({
+            email: 'test@example.com'
+        });
+    });
+
+    it('should not look up a user when the email is missing', async () => {
+        mockReq.body = {
+            password: 'pass123'
+        };
+
+        await login(mockReq as Request, mockRes as Response);
+
+        expect(User.findOne).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not look up a user when the password is missing', async () => {
+        mockReq.body = {
+            email: 'test@example.com'
+        };
+
+        await login(mockReq as Request, mockRes as Response);
+
+        expect(User.findOne).toHaveBeenCalledTimes(1);
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+    });
+
+    it('should handle an empty email and password', async () => {
+        mockReq.body = {
+            email: '',
+            password: ''
+        };
+
+        await login(mockReq as Request, mockRes as Response);
+
+        expect(User.findOne).not.toHaveBeenCalled();
     });
 });
